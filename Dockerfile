@@ -2,6 +2,8 @@ FROM python:3.9.6-alpine3.14
 
 WORKDIR /work
 
+# https://unix.stackexchange.com/questions/206540/date-d-command-fails-on-docker-alpine-linux-container
+RUN apk add --update coreutils && rm -rf /var/cache/apk/*
 RUN apk add jq curl ffmpeg libxml2-utils wget
 RUN wget -o - https://raw.githubusercontent.com/uru2/rec_radiko_ts/master/rec_radiko_ts.sh &&\
   mv /work/rec_radiko_ts.sh /usr/local/bin/. &&\
@@ -19,3 +21,4 @@ ENV TZ Asia/Tokyo
 WORKDIR /out
 
 ENTRYPOINT ["/bin/sh", "/usr/local/bin/rap.sh"]
+
