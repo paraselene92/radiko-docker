@@ -1,7 +1,12 @@
 #!/bin/sh
 
+if [ $6 -eq 0 ]; then
+  DAY=$(date -d yesterday +%Y%m%d)
+else
+  DAY=$(date +%Y%m%d)
+fi 
+
 STATION_NAME=$1
-DAY=$(date -d yesterday +%Y%m%d)
 DATE=${DAY}$2
 LENGTH=$3
 FILENAME="/out/"$4"_"${DATE}".m4a"
