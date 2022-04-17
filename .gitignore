@@ -1,5 +1,4 @@
-deploy.sh
-runtask.sh
+utils/
 
 ### credentials
 credential/
