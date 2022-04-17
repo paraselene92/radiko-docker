@@ -1,5 +1,13 @@
 FROM python:3.9.6-alpine3.14
 
+WORKDIR /
+RUN mkdir -p /.aws
+
+ADD ./config /.aws
+ADD ./credentials /.aws
+
+RUN chmod 600 /.aws/config /.aws/credentials
+
 WORKDIR /work
 
 # https://unix.stackexchange.com/questions/206540/date-d-command-fails-on-docker-alpine-linux-container
