@@ -1,7 +1,5 @@
 #!/bin/sh
 
-ls -la /.aws/
-
 if [ $6 -eq 0 ]; then
   DAY=$(date -d yesterday +%Y%m%d)
 else
@@ -19,14 +17,13 @@ BUCKET_NAME=$5
 #curl --max-time 5 169.254.170.2${AWS_CONTAINER_CREDENTIALS_RELATIVE_URI}
 
 aws s3 cp --no-progress ${FILENAME} ${BUCKET_NAME}
-presigned_url=$(aws s3 presign --expires-in 604800 ${BUCKET_NAME}$4"_"${DATE}".m4a")
-presigned_url=`echo "$presigned_url" | sed -e s/'&'/'%26'/g -e s/'+'/'%2B'/g`
+upload_text="おはようございます！新しいラジオ番組がアップロードされました！\n番組名: "$4"_"${DATE}".m4a"
 
 #cat - << __EOS__ >> message.json
 PAYLOAD="payload={
   \"channel\": \"${SLACK_CHANNEL}\",
   \"username\": \"radio_dl_bot\",
-  \"text\": \"${presigned_url}\"
+  \"text\": \"${upload_text}\"
 }"
 #__EOS__
 
